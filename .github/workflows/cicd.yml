@@ -1,0 +1,23 @@
+name: CI/CD Pipeline
+
+# Trigger the workflow on push or pull request
+on:
+  push:
+    branches: [ "main", "branch-dev" ] # Change to your target branch name
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code from the repository
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      # Step 2: Print a message to verify it works (Replace this with your build/test steps)
+      - name: Run a diagnostic test
+        run: |
+          echo "Starting CI/CD pipeline execution..."
+          echo "Code checked out successfully. Ready for build steps."

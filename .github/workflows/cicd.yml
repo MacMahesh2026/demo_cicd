@@ -1,23 +1,25 @@
-name: CI/CD Pipeline
+name: Java CI/CD with Maven
 
-# Trigger the workflow on push or pull request
 on:
   push:
-    branches: [ "main", "branch-dev" ] # Change to your target branch name
+    branches: [ "main", "dev" ] # Add your specific branch names here
   pull_request:
     branches: [ "main" ]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Check out the code from the repository
-      - name: Checkout repository code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Print a message to verify it works (Replace this with your build/test steps)
-      - name: Run a diagnostic test
-        run: |
-          echo "Starting CI/CD pipeline execution..."
-          echo "Code checked out successfully. Ready for build steps."
+      - name: Set up JDK 17
+        uses: actions/actions-setup-java@v4
+        with:
+          java-version: '21' # Change to '11' or '21' if your project uses a different version
+          distribution: 'temurin'
+          cache: 'maven' # Automatically caches dependencies to speed up future runs
+
+      - name: Build and Test with Maven
+        run: mvn -B clean verify
